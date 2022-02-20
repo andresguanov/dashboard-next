@@ -1,5 +1,6 @@
-import '../styles/globals.css'
+/* eslint-disable react/jsx-props-no-spreading */
 import type { AppProps } from 'next/app'
+import '../styles/globals.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />
 
