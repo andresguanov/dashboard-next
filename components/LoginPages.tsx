@@ -1,14 +1,20 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { AuthContext } from '@hooks/useAuth'
 
 const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+  const auth = useContext(AuthContext)
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const email = emailRef.current?.value
     const password = passwordRef.current?.value
+
+    auth.signIn(email, password).then(() => {
+      console.log('succes')
+    })
   }
 
   return (
