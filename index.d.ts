@@ -4,3 +4,7 @@ interface Navigation {
   href: string
   current?: boolean
 }
+
+interface Token{
+  'access_token': string
+}

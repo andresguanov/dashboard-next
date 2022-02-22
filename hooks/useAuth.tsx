@@ -25,12 +25,15 @@ const useProvideAuth = (): ProvideAuth => {
         'Content-Type': 'application/json',
       },
     }
-    const { data: accessToken } = await axios.post(
+    const { data: accessToken }: { data: Token } = await axios.post(
       endPoints.auth.login,
       { email, password },
       options,
     )
-    console.log(accessToken)
+
+    if (accessToken) {
+      Cookie.set('token', accessToken.access_token, { expires: 5 })
+    }
   }
 
   return {

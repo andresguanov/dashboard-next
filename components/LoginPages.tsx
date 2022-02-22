@@ -1,8 +1,9 @@
-import { useContext, useRef } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { AuthContext } from '@hooks/useAuth'
 
 const LoginPage = () => {
+  const [error, setError] = useState<boolean>(false)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const auth = useContext(AuthContext)
@@ -12,13 +13,23 @@ const LoginPage = () => {
     const email = emailRef.current?.value
     const password = passwordRef.current?.value
 
-    auth.signIn(email, password).then(() => {
-      console.log('succes')
-    })
+    auth.signIn(email, password)
+      .then(() => {
+        console.log('succes')
+        setError(false)
+      })
+      .catch((e) => {
+        console.log({ e })
+        if (e) {
+          setError(true)
+        }
+      })
   }
 
   return (
+
     <div className="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
+
       <div className="w-full max-w-md space-y-8">
         <div>
           <img className="w-auto h-12 mx-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
@@ -56,6 +67,7 @@ const LoginPage = () => {
                 placeholder="Password"
                 ref={passwordRef}
               />
+              {error && <p className="text-sm text-red-500">Incorrect e-mail or password</p>}
             </div>
           </div>
 
