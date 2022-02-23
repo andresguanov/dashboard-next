@@ -4,8 +4,16 @@ import axios from 'axios'
 import endPoints from '@services/api'
 import type { ReactNode } from 'react'
 
+interface User {
+  email: string
+  id: number
+  name: string
+  password: string
+  role: string
+}
+
 interface ProvideAuth {
-  user: null
+  user: User
   // eslint-disable-next-line no-unused-vars
   signIn: (email: string | undefined, password: string | undefined) => Promise<any>
 }
@@ -13,7 +21,7 @@ interface ProvideAuth {
 export const AuthContext = createContext<ProvideAuth>(null!)
 
 const useProvideAuth = (): ProvideAuth => {
-  const [user, setUser] = useState<null>(null)
+  const [user, setUser] = useState<User>(null!)
 
   const signIn = async (
     email: string | undefined,
@@ -32,7 +40,15 @@ const useProvideAuth = (): ProvideAuth => {
     )
 
     if (accessToken) {
-      Cookie.set('token', accessToken.access_token, { expires: 5 })
+      const { access_token: token }: Token = accessToken
+      Cookie.set('token', token, { expires: 5 })
+
+      // Axios type error
+      axios.defaults.headers.Authorization = `Bearer ${token}`
+
+      const { data: userInfo } = await axios.get(endPoints.auth.profile)
+      console.log(userInfo)
+      setUser(userInfo)
     }
   }
 

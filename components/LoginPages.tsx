@@ -1,12 +1,14 @@
 import { useState, useContext, useRef } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { AuthContext } from '@hooks/useAuth'
+import { useRouter } from 'next/router'
 
 const LoginPage = () => {
   const [error, setError] = useState<boolean>(false)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const auth = useContext(AuthContext)
+  const route = useRouter()
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -15,11 +17,10 @@ const LoginPage = () => {
 
     auth.signIn(email, password)
       .then(() => {
-        console.log('succes')
+        route.push('/dashboard')
         setError(false)
       })
       .catch((e) => {
-        console.log({ e })
         if (e) {
           setError(true)
         }
