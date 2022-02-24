@@ -47,7 +47,6 @@ const useProvideAuth = (): ProvideAuth => {
       axios.defaults.headers.Authorization = `Bearer ${token}`
 
       const { data: userInfo } = await axios.get(endPoints.auth.profile)
-      console.log(userInfo)
       setUser(userInfo)
     }
   }
