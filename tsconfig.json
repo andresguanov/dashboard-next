@@ -23,6 +23,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "/**/*.ts", "**/*.tsx", "hooks/useAuth.ts"],
+  "include": ["next-env.d.ts", "/**/*.ts", "**/*.tsx", "hooks/useAuth.ts", "components/common/Chart.jsx"],
   "exclude": ["node_modules"]
 }

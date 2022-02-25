@@ -23,3 +23,7 @@ interface Product {
   price: number
   title: string
 }
+
+interface ProductsList {
+  [key: string]: number
+}
