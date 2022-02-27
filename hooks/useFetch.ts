@@ -13,9 +13,10 @@ const useFetch = (endpoint: string) => {
     try {
       fetchData()
     } catch (e) {
-      console.log({ e })
+      console.error(`This error is${e}`)
     }
-  },[])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return data
 }

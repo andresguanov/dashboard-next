@@ -16,12 +16,13 @@ interface ProductCategory {
 }
 
 interface Product {
-  category: ProductCategory
+  category?: ProductCategory
   description: string
-  id: number
+  id?: number
   images: string[]
   price: number
   title: string
+  categoryId?: number
 }
 
 interface ProductsList {

@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "1.5.0",
     "@heroicons/react": "1.0.5",
+    "@tailwindcss/forms": "^0.4.0",
     "@types/js-cookie": "3.0.1",
     "axios": "0.26.0",
     "chart.js": "3.7.1",

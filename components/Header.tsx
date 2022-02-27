@@ -37,10 +37,8 @@ const Header = (): JSX.Element => {
   const userData: UserData = {
     name: auth?.user?.name || initialUserData.name,
     email: auth?.user?.email || initialUserData.email,
-    imageUrl: auth?.use?.name ? `https://ui-avatars.com/api/?name=${auth?.user?.name}` : initialUserData.imageUrl,
+    imageUrl: auth?.user?.name ? `https://ui-avatars.com/api/?name=${auth?.user?.name}` : initialUserData.imageUrl,
   }
-
-  console.table(userData)
 
   return (
     <Disclosure as="nav" className="bg-gray-800">

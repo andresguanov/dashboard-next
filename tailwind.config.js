@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -10,4 +11,7 @@ module.exports = {
       ...colors,
     },
   },
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
