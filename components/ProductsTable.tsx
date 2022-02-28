@@ -1,8 +1,13 @@
+import { XCircleIcon } from '@heroicons/react/outline'
+
 interface Props {
-  products: Product[]
+  products: Product[],
+  // eslint-disable-next-line no-unused-vars
+  handleDelete: (id: string) => void
 }
 
-const ProductsTable = ({ products }: Props): JSX.Element => (
+const ProductsTable = ({ products, handleDelete }: Props): JSX.Element =>
+(
   <div className="flex flex-col">
     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -59,9 +64,11 @@ const ProductsTable = ({ products }: Props): JSX.Element => (
                     </a>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a href="/edit" className="text-indigo-600 hover:text-indigo-900">
-                      Delete
-                    </a>
+                    <XCircleIcon
+                      className="flex-shrink-0 w-6 text-gray-400 cursor-pointer h6"
+                      aria-hidden="true"
+                      onClick={() => handleDelete(product.id)}
+                    />
                   </td>
                 </tr>
               ))}

@@ -7,6 +7,7 @@ import FormProduct from '@components/FormProduct'
 import axios from 'axios'
 import useAlert from '@hooks/useAlert'
 import Alert from '@common/Alert'
+import { deleteProduct } from '@services/api/products'
 
 const Products = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -24,6 +25,17 @@ const Products = () => {
       console.error(error)
     }
   }, [alert])
+
+  const handleDelete = (id: string) => {
+    deleteProduct(id).then(() => {
+      setAlert({
+        active: true,
+        message: 'Delete product successfully',
+        type: 'error',
+        autoClose: true,
+      })
+    })
+  }
 
   return (
     <>
@@ -45,7 +57,7 @@ const Products = () => {
           </span>
         </div>
       </div>
-      <ProductsTable products={products} />
+      <ProductsTable products={products} handleDelete={handleDelete} />
       <Modal open={open} setOpen={setOpen}>
         <FormProduct setOpen={setOpen} setAlert={setAlert} />
       </Modal>
