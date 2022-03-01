@@ -3,6 +3,7 @@ import Cookie from 'js-cookie'
 import axios from 'axios'
 import endPoints from '@services/api'
 import type { ReactNode } from 'react'
+import { route } from 'next/dist/server/router'
 
 interface User {
   email: string
@@ -16,6 +17,7 @@ interface ProvideAuth {
   user: User
   // eslint-disable-next-line no-unused-vars
   signIn: (email: string | undefined, password: string | undefined) => Promise<any>
+  logout: any
 }
 
 export const AuthContext = createContext<ProvideAuth>(null!)
@@ -51,9 +53,17 @@ const useProvideAuth = (): ProvideAuth => {
     }
   }
 
+  const logout = () => {
+    Cookie.remove('token')
+    setUser(null)
+    delete axios.defaults.headers.Authorization
+    window.location.href = '/login'
+  }
+
   return {
     user,
     signIn,
+    logout,
   }
 }
 
