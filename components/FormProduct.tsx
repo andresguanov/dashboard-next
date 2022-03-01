@@ -1,8 +1,10 @@
 import { FormEvent, useRef } from 'react'
-import { addProduct } from '@services/api/products'
+import { addProduct, updateProduct } from '@services/api/products'
+import { useRouter } from 'next/router'
 
 const FormProduct = ({ setOpen, setAlert, product }): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null!)
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent<FormEvent>): void => {
     e.preventDefault()
@@ -15,24 +17,31 @@ const FormProduct = ({ setOpen, setAlert, product }): JSX.Element => {
       images: [formData.get('images')?.name],
     }
 
-    addProduct(data)
-      .then(() => {
-        setAlert({
-          active: true,
-          message: 'Product added successfully',
-          type: 'success',
-          autoClose: false,
+    if (product) {
+      updateProduct(product.id, data)
+        .then(() => {
+          router.push('/dashboard/products/')
         })
-        setOpen(false)
-      }).catch((error) => {
-        setAlert({
-          active: true,
-          message: error.message,
-          type: 'error',
-          autoClose: false,
+    } else {
+      addProduct(data)
+        .then(() => {
+          setAlert({
+            active: true,
+            message: 'Product added successfully',
+            type: 'success',
+            autoClose: false,
+          })
+          setOpen(false)
+        }).catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          })
+          setOpen(false)
         })
-        setOpen(false)
-      })
+    }
   }
   return (
     <form ref={formRef} onSubmit={handleSubmit}>

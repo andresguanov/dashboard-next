@@ -25,4 +25,22 @@ const deleteProduct = async (id: string) => {
   return response.data
 }
 
-export { addProduct, deleteProduct }
+const updateProduct = async (id:string, product: Product): Promise<Product> => {
+  const config = {
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+
+    },
+  }
+
+  const response = await axios.put(
+    endPoints.products.updateProducts(id),
+    product,
+    config,
+  )
+
+  return response.data
+}
+
+export { addProduct, deleteProduct, updateProduct }
